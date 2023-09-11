@@ -1,7 +1,7 @@
 .env
 
-*.json
+credentials.json
 
 venv/
-
+*ruff*
 __pycache__/
