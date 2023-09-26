@@ -27,7 +27,8 @@ def main():
         
     def echo(update, context):
         answer = detect_intent_texts(project_id, tg_chat_id, update.message.text)
-        context.bot.send_message(chat_id=update.effective_chat.id, text=answer)
+        context.bot.send_message(chat_id=update.effective_chat.id,
+                                 text=answer.fulfillment_text)
     
     updater = Updater(token=tg_bot_token)
     dispatcher = updater.dispatcher

@@ -13,7 +13,7 @@ def detect_intent_texts(project_id, session_id, text):
     response = session_client.detect_intent(
         request={"session": session, "query_input": query_input}
     )
-    return response.query_result.fulfillment_text
+    return response.query_result
 
 
 if __name__ == '__main__':
@@ -26,4 +26,4 @@ if __name__ == '__main__':
     project_id = os.environ.get('PROJECT_ID')
     text = sys.argv[1]
     answer = detect_intent_texts(project_id, tg_chat_id, text)
-    print(answer)
+    print(answer.fulfillment_text)
