@@ -19,10 +19,14 @@
     ```shell
     pip install -r requirements.txt
     ```
-4. Cоздать [бота](https://t.me/BotFather) в Telegram и получить API-токен вида:
+4. Cоздать [бота](https://t.me/BotFather) №1 *TG_BOT_TOKEN* в Telegram и получить API-токен вида:
     ```shell
     988463085:AGEArJ5Bde5DYfu8ElzVhNM
     ```
+для взаимодействие с пользователем
+и
+бота №2 *TG_BOT_LOGGER_TOKEN* для контроля работы ботов в Telegram и VK
+
 5. Создать группу в [VK](https://vk.com). Получите токен группы в настройках сообщества и разрешите боту отправку сообщений.
 
 6. 1. [Создать агента DialogFlow](https://dialogflow.cloud.google.com/#/newAgent). В качестве языка по уполномочию установите русский. Скопировать ваш созданный Progect ID;
