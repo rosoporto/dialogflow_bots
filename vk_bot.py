@@ -3,7 +3,6 @@ import time
 import vk_api as vk
 import logging
 import random
-import requests
 from dotenv import load_dotenv
 from vk_api.longpoll import VkLongPoll, VkEventType
 from dialogflow import detect_intent_texts
@@ -13,15 +12,7 @@ from tg_logs_handler import TgLogsHandler
 logger = logging.getLogger(__file__)
 
 
-def echo(event, vk_api):
-    vk_api.messages.send(
-        user_id=event.user_id,
-        message=event.text,
-        random_id=random.randint(1,1000)
-    )
-
-
-def vk_message(event, project_id, vk_api):
+def reply_to_message_vk(event, project_id, vk_api):
     answer_bot = detect_intent_texts(project_id,
                                     event.user_id,
                                     event.text)
@@ -33,7 +24,6 @@ def vk_message(event, project_id, vk_api):
 
 
 def main():
-    project = 'VK Bot'
     logging_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(format=logging_format, level=logging.INFO)
     
@@ -46,6 +36,7 @@ def main():
     tg_handler = TgLogsHandler(tg_bot_logger_token, tg_chat_id)
     logger.addHandler(tg_handler)    
     
+    project = 'VK Bot'
     logger.info(f'{project} started')
     
     while True:
@@ -55,13 +46,10 @@ def main():
         try:
             for event in longpoll.listen():
                 if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-                    vk_message(event, project_id, vk_api)                    
-        except requests.exceptions.ReadTimeout:
-            logger.error(f'{project}: Time Out')
-            continue
-        except requests.exceptions.ConnectionError:
-            logger.error(f'{project}: Lost connection')
-            time.sleep(600)
+                    reply_to_message_vk(event, project_id, vk_api)                    
+        except Exception as error:
+            logger.exception(error)
+            time.sleep(60)
 
 
 if __name__ == '__main__':
