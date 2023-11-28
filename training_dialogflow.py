@@ -1,8 +1,13 @@
 import os
 import json
 import logging
+import argparse
 from dotenv import load_dotenv
 from google.cloud import dialogflow
+
+
+logger = logging.getLogger(__file__)
+
 
 def read_json(file_json, encoding):
     with open(file_json, 'r', encoding=encoding) as questions:
@@ -35,18 +40,27 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
     print("Intent created: {}".format(response))
 
     
-if __name__ == '__main__':
-    logger = logging.getLogger(__file__)
+if __name__ == '__main__':    
     logging_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(format=logging_format, level=logging.INFO)
     
     load_dotenv()    
-    project_id = os.environ.get('PROJECT_ID')
-    contents = read_json('training/questions.json', 'utf-8')
+    FOLDER_TO_JSON = 'training' 
+      
+    parser = argparse.ArgumentParser(description='Training file for your bot')    
+    parser.add_argument('training_file',
+                        help='File for training the bot in the json format',
+                        default='questions.json')
+    args = parser.parse_args()
     
-    for topic in contents:
-        questions = contents[topic]['questions']  
-        answer = contents[topic]['answer']
+    path_to_json = os.path.join(FOLDER_TO_JSON, args.training_file)    
+    contents = read_json(path_to_json, 'utf-8')
+    
+    project_id = os.environ.get('PROJECT_ID')
+        
+    for topic, tasks in contents.items(): 
+        questions = tasks['questions']
+        answer = tasks['answer']
         if isinstance(answer, str):
             answer = [answer]
         create_intent(project_id, topic, questions, answer)
