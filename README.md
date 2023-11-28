@@ -16,22 +16,22 @@
 У вас уже должен быть установлен Python 3.
 
 1. Установить виртуальное окружение и активировать его:
-    ```shell
+    ```
     python -m venv venv
     ./venv/Scripts/Activate.ps1
     ```
 
 2. Клонировать репозиторий:
-    ```shell
+    ```
     git clone https://github.com/rosoporto/dialogflow_bots.git
     ```
 
 3. Установить зависимости:
-    ```shell
+    ```
     pip install -r requirements.txt
     ```
 4. Cоздать [бота](https://t.me/BotFather) №1 *TG_BOT_TOKEN* в Telegram и получить API-токен вида:
-    ```shell
+    ```
     988463085:AGEArJ5Bde5DYfu8ElzVhNM
     ```
 для взаимодействие с пользователем
@@ -56,20 +56,26 @@
 8. Обучить нейросеть Dialogflow:
     1. [Вручную](https://cloud.google.com/dialogflow/es/docs/intents-training-phrases);
     2. Через JSON файл:
-      1. Заполнить JSON файл с именем `questions.json` в папке `training` проекта;      
-      2. Запустить скрипт:
-        ```shell
-        python training_dialogflow.py
+      1. Создайте JSON файл с любым именем (по уполномочию `questions.json`) на латинице в папке `training` проекта;
+      2. Заполните свой файл по примеру `questions.json`;      
+      3. Запустить скрипт (если не создавали своих файлов):
         ```
+        python training_dialogflow.py 
+        ```
+      или
+        ```
+        python training_dialogflow.py имя_вашего_файла.json
+        ```
+
 
 ## Как запустить
 
 1. Telegram:
-	```shell
+	```
 	python tg_bot.py
 	```
 2. VK:
-	```shell
+	```l
 	python vk_bot.py
     ```
     
