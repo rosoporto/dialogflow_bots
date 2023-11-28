@@ -5,6 +5,9 @@ from dotenv import load_dotenv
 from google.cloud import dialogflow
 
 
+logger = logging.getLogger(__file__)
+
+
 def detect_intent_texts(project_id, session_id, text):
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)    
@@ -16,8 +19,7 @@ def detect_intent_texts(project_id, session_id, text):
     return response.query_result
 
 
-if __name__ == '__main__':
-    logger = logging.getLogger(__file__)
+if __name__ == '__main__':    
     logging_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(format=logging_format, level=logging.INFO)
     
