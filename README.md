@@ -59,13 +59,13 @@
       1. Создайте JSON файл с любым именем (по уполномочию `questions.json`) на латинице в папке `training` проекта;
       2. Заполните свой файл по примеру `questions.json`;      
       3. Запустить скрипт (если не создавали своих файлов):
-        ```
-        python training_dialogflow.py 
-        ```
+    ```
+    python training_dialogflow.py 
+    ```
       или
-        ```
-        python training_dialogflow.py имя_вашего_файла.json
-        ```
+    ```
+    python training_dialogflow.py имя_вашего_файла.json
+    ```
 
 
 ## Как запустить
