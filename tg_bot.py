@@ -22,8 +22,8 @@ def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Здравствуйте")
   
         
-def echo(update, context, project_id, tg_chat_id):    
-    answer = detect_intent_texts(project_id, tg_chat_id,
+def reply_to_message_tg(update, context, project_id):    
+    answer = detect_intent_texts(project_id, update.message.chat.id,
                                 update.message.text)
     context.bot.send_message(chat_id=update.effective_chat.id,
                                 text=answer.fulfillment_text)
@@ -39,8 +39,7 @@ def send_error(update: Update, context: CallbackContext) -> None:
                                 text=text)
 
 
-def main():
-    project = 'TG Bot'
+def main():    
     logging_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(format=logging_format, level=logging.INFO)    
     
@@ -53,10 +52,11 @@ def main():
     tg_handler = TgLogsHandler(tg_bot_logger_token, tg_chat_id)
     logger.addHandler(tg_handler)
     
-    callback_echo = partial(echo,
+    callback_echo = partial(reply_to_message_tg,
                             project_id=project_id,
                             tg_chat_id=tg_chat_id)
-     
+    
+    project = 'TG Bot' 
     logger.info(f'{project} started')    
     while True:
         try:
@@ -74,8 +74,8 @@ def main():
             
             updater.start_polling()
             updater.idle()
-        except Exception as exc:
-            logger.exception(exc)
+        except Exception as error:
+            logger.exception(error)
             time.sleep(60)
 
 if __name__ == '__main__':
