@@ -45,16 +45,15 @@ if __name__ == '__main__':
     logging.basicConfig(format=logging_format, level=logging.INFO)
     
     load_dotenv()    
-    FOLDER_TO_JSON = 'training' 
       
     parser = argparse.ArgumentParser(description='Training file for your bot')    
     parser.add_argument('training_file',
+                        nargs='?',
                         help='File for training the bot in the json format',
                         default='questions.json')
     args = parser.parse_args()
     
-    path_to_json = os.path.join(FOLDER_TO_JSON, args.training_file)    
-    contents = read_json(path_to_json, 'utf-8')
+    contents = read_json(args.training_file, 'utf-8')
     
     project_id = os.environ.get('PROJECT_ID')
         
@@ -63,4 +62,5 @@ if __name__ == '__main__':
         answer = tasks['answer']
         if isinstance(answer, str):
             answer = [answer]
+        print(project_id, topic, questions, answer)        
         create_intent(project_id, topic, questions, answer)
