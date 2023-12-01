@@ -56,7 +56,7 @@
 8. Обучить нейросеть Dialogflow:
     1. [Вручную](https://cloud.google.com/dialogflow/es/docs/intents-training-phrases);
     2. Через JSON файл:
-      1. Создайте JSON файл с любым именем (по уполномочию `questions.json`) на латинице в папке `training` проекта;
+      1. Создайте JSON файл с любым именем (по уполномочию `questions.json`) на латинице в папке проекта;
       2. Заполните свой файл по примеру `questions.json`;      
       3. Запустить скрипт (если не создавали своих файлов):
     ```
